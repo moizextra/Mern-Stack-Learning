@@ -66,6 +66,11 @@ reviews:[
 createdAt:{
     type:Date,
     default:Date.Now
+},
+user:{
+    type:mongoose.Schema.ObjectId,
+    ref:"User",
+    required:true
 }
 });
 module.exports=mongoose.model("Product",productSchema);
