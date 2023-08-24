@@ -1,9 +1,11 @@
 const { json } = require("express");
 
 // pagination and searchfilters
+// feature Class
 class Features {
+//  costtructor("keyword","laptop")
     constructor(query, querystr) {
-        this.query = query;
+        this.query = query; 
         this.querystr = querystr;
     }
     // function for Search
@@ -28,9 +30,9 @@ class Features {
         removefields.forEach((key) => delete queryCopy[key])
         // Filter for Price and rating 
         console.log(queryCopy); // console.log after change 
-        let querystr = JSON.stringify(queryCopy)
+        let querystr = JSON.stringify(queryCopy) // again setting querystr 
         querystr = querystr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`)
-        console.log(querystr)
+        console.log(querystr) // we will get query object
         this.query = this.query.find(JSON.parse(querystr)) // update the query // converting again to object
         // jab bi hum yahan par this.query likein tu samj jana hum ny Product.find() likha ha  // This is case sensitive laptop and Laptop considers differently
         return this

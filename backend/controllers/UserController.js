@@ -5,16 +5,23 @@ const sendEmail = require("../utils/sendemail")
 // Register a User
 exports.registerUser =
     async (req, res, next) => {
-     
-            const { name, email, password } = req.body;
+        try{
+            const { name, password,email } = req.body;
             const user = await User.create({
                 name,
                 email,
                 password,
+                avatar:{
+                    public_id:"sampleid",
+                    url:"url"
+                }
               });
             // getting token by running method we have defined in jwt
             sendGeneratedToken(user, 200, res);
        
+        }catch(error){
+            return next(new ErrorHander(error.message,500))
+        }
     }
 exports.LoginUser = async (req, res, next) => {
     try {

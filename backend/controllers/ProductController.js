@@ -56,7 +56,8 @@ exports.DeleteProduct =
         let product = await Product.findById(req.params.id);
     
         if (!product) {
-            return next(new ErrorHander("Product not found", 404));
+let error=new ErrorHander("Product not found", 404);
+            return next(error);
         }
     
         product = await Product.findByIdAndDelete(req.params.id);
@@ -64,6 +65,7 @@ exports.DeleteProduct =
             res.status(200).json({
                 success: true,
                 message: "Product Delete Successfully",
+               
             });
         }
     }
