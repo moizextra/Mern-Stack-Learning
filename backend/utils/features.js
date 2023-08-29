@@ -25,14 +25,14 @@ class Features {
     filter() {
         // first creating a fuctionality that filters category
         const queryCopy = { ...this.querystr }; // creating copy of this.query
-        console.log(queryCopy) // console.log before change 
+        // console.log(queryCopy) // console.log before change 
         const removefields = ["keyword", "page", "limit",] // Here we are modifying query by saying that in this particular filter function i dont need these three things mention in emove filter array
         removefields.forEach((key) => delete queryCopy[key])
         // Filter for Price and rating 
-        console.log(queryCopy); // console.log after change 
+        // console.log(queryCopy); // console.log after change 
         let querystr = JSON.stringify(queryCopy) // again setting querystr 
         querystr = querystr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`)
-        console.log(querystr) // we will get query object
+        // console.log(querystr) // we will get query object
         this.query = this.query.find(JSON.parse(querystr)) // update the query // converting again to object
         // jab bi hum yahan par this.query likein tu samj jana hum ny Product.find() likha ha  // This is case sensitive laptop and Laptop considers differently
         return this

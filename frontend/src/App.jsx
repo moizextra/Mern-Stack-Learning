@@ -8,6 +8,9 @@ import './App.css'
 import Header from './Componets/Header'
 import Footer from './Componets/Footer'
 import Home from './Componets/Home'
+import ProductDetail from './Componets/ProductDetail';
+import Product from './Pages/Products';
+import Search from './Pages/Search';
 function App() {
 
   return (
@@ -15,6 +18,10 @@ function App() {
 <Header/>
 <Routes>
 <Route exact path="/" element={<Home />} />
+<Route exact path="/product/:id" element={<ProductDetail />} />
+<Route exact path="/products" element={<Product />} />
+<Route exact path="/products/:keyword" element={<Product />} />
+<Route exact path="/search" element={<Search />} />
 </Routes>
 <Footer/>
 </Router>

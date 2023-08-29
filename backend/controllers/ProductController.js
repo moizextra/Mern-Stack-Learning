@@ -44,7 +44,7 @@ exports.getAllProduct = async (req, res, next) => {
 
 // Here we can also give our search thing to  Product.find("samosa") but we will not bcz we require all the words such that samosamosa so thats why we class for handling it
         const products = await apifeatures.query;
-        res.status(200).json({ message: "Success", products,ProductCount });
+        res.status(200).json({ message: "Success", products,ProductCount,resultperpage });
     } catch (error) {
         next(error); // Pass the error to the next middleware for proper error handling
     }

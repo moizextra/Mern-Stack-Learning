@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = () => {
     return (
         <>
-            <div className="container my-5">
+            <div className="container my-5 bg-dark">
                 <footer className="text-center text-white">
                     <div className="container">
                         <section className="mt-5">
@@ -81,9 +81,9 @@ const Footer = () => {
                         className="text-center p-3"
                        
                     >
-                        © 2020 Copyright:
+                        © 2023 Copyright:
                         <a className="text-white" href="https://mdbootstrap.com/"
-                        >MDBootstrap.com</a
+                        >Mern Stack Learning Project</a
                         >
                     </div>
                 </footer>

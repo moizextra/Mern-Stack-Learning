@@ -1,29 +1,38 @@
 import React, { useEffect } from 'react'
 import Product from './Product'
 import Metadata from './layout/metadata'
-import {useDispatch } from 'react-redux'
-import { getProducts } from '../Productslices/ProductSlice'
+import {useDispatch,useSelector } from 'react-redux'
+import Loading from './Loading'
+import { getProducts } from '../Productslices/Products'
+import { ToastContainer, toast } from 'react-toastify';
 const Home = () => {
-  const dispatch=useDispatch()
+  const dispatch=useDispatch();
+const products=useSelector((state)=>state.product.Productdata);
+const error=useSelector((state)=>state.product.error);
+console.log(error);
+console.log(products)
 useEffect(() => {
-dispatch(getProducts());
+dispatch(getProducts())
 }, [])
+useEffect(() => {
+  if(error){
+    toast.error('Some unknown Error Occured!', {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      })
+  }
+}, [error])
 
-  
-    const productdemo={
-              "_id": "moizsheraz",
-            "name": "Product 1",
-            "description": "Product 1 description",
-            "Price": 500,
-            "rating": 0,
-            "category": "Laptop",
-            "Stock": 1,
-            "image": [
-                {url:"https://images.unsplash.com/photo-1569060368681-889a62a8f416?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"}
-            ],
-            "reviews": [],
-    }
+// Getting the isloading and Product from State
+
   return (
+    <>
     <>
     <Metadata title="Mern Stack Learning 1"/>
     <section className="hero">
@@ -34,20 +43,17 @@ dispatch(getProducts());
     <div className="waves"></div>
   </section>
   <section className='Productsection'>
-  <h1 class="display-2 text-center">Featured Products</h1>
-  <div className='d-flex flex-row m-3 border border-0 flex-wrap'>
-  <Product product={productdemo} />
-  <Product product={productdemo} />
-  <Product product={productdemo} />
-  <Product product={productdemo} />
-  <Product product={productdemo} />
-  <Product product={productdemo} />
-  <Product product={productdemo} />
-  <Product product={productdemo} />
+  <h1 class="display-2 text-center" >Featured Products</h1>
+  <div className='d-flex flex-row m-3 border  flex-wrap'>
+
+{ products?products.map((product)=>{
+  return <Product product={product}/>
+}):<Loading/>}
   </div>
   </section>
     </>
-
+<ToastContainer/>
+</>
   )
 }
 
