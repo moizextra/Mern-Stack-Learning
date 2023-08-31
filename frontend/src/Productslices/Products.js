@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const getProducts = createAsyncThunk('getProducts', async (keyword="",page=1) => {
+export const getProducts = createAsyncThunk('getProducts', async ( keyword="", page=1 ) => {
+
   try {
     const response = await fetch(`http://localhost:3000/api/v1/products?keyword=${keyword}&page=${page}`);
     if (!response.ok) {
