@@ -17,8 +17,8 @@ const Products = () => {
   const productsCount = useSelector((state) => state.product.ProductCount); // Rename to `productsCount`
   const loading = useSelector((state) => state.product.isLoading);
 const handlefetch=()=>{
-  const page=3
-  dispatch(getProducts(keyword,page));
+  let page=3;
+  dispatch(getProducts({ keyword, page }));
 }
   useEffect(() => {
     if (error) {
@@ -35,24 +35,12 @@ const handlefetch=()=>{
     }
   }, [error]);
 
-  // const handlePageChange = (pageNumber) => {
-  //   setCurrentPage(pageNumber); // Update current page when pagination is clicked
-  // };
-
   if (loading) {
     return <Loading />;
   }
 
   return (
-    <>
-      {products && products.map(product => (
-        <Product key={product.id} product={product} />
-      ))}
-  <button className="btn border" onClick={handlefetch}>Fetch</button>
-    </>
-  
-    
-  
+  <><button onClick={handlefetch}>Fetch</button></>
   );
 };
 
