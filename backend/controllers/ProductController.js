@@ -46,7 +46,7 @@ exports.getAllProduct = async (req, res, next) => {
         const products = await apifeatures.query;
         res.status(200).json({ message: "Success", products,ProductCount,resultperpage });
     } catch (error) {
-        next(error); // Pass the error to the next middleware for proper error handling
+        next(new ErrorHander(error.message,500)); // Pass the error to the next middleware for proper error handling
     }
 };
 

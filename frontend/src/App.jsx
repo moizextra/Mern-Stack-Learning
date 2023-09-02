@@ -11,8 +11,10 @@ import Home from './Componets/Home'
 import ProductDetail from './Componets/ProductDetail';
 import Product from './Pages/Products';
 import Search from './Pages/Search';
+import Login from './Pages/Login';
+import Signup from './Pages/Signup';
+import Account from './Componets/Account';
 function App() {
-
   return (
 <Router>
 <Header/>
@@ -22,6 +24,9 @@ function App() {
 <Route exact path="/products" element={<Product />} />
 <Route exact path="/products/:keyword" element={<Product />} />
 <Route exact path="/search" element={<Search />} />
+<Route exact path="/login" element={<Login />} />
+<Route exact path="/signup" element={<Signup />} />
+<Route exact path="/account" element={<Account />} />
 </Routes>
 <Footer/>
 </Router>

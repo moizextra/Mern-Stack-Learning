@@ -1,5 +1,6 @@
 import {React,useState} from 'react'
 import { useNavigate } from 'react-router-dom';
+import Metadata from '../Componets/layout/metadata';
 const Search = ({}) => {
     const [keyword,setkeyword]=useState("");
     const navigate = useNavigate();
@@ -9,11 +10,11 @@ if(keyword.trim()){
     navigate(`/products/${keyword}`);
 }else{
     navigate(`/products`);
-
 }
     }
   return (
-    
+    <>
+    <Metadata title="Search Bar.."/>
 <form onSubmit={handleSubmit}>   
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
     <div class="relative">
@@ -27,6 +28,7 @@ if(keyword.trim()){
     </div>
 </form>
 
+    </>
   )
 }
 

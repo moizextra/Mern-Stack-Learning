@@ -12,7 +12,12 @@ const error=useSelector((state)=>state.product.error);
 console.log(error);
 console.log(products)
 useEffect(() => {
-dispatch(getProducts())
+  let keyword=""
+  let page=1
+  let price=[0,300]
+  let Category="Laptop"
+  let ratings=0
+  dispatch(getProducts(keyword,page,price,Category,ratings));
 }, [])
 useEffect(() => {
   if(error){

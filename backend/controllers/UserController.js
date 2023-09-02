@@ -32,15 +32,15 @@ exports.LoginUser = async (req, res, next) => {
         }
         const user = await User.findOne({ email }).select("+password");
         if (!user) {
-            return next(new ErrorHander("User doesnot exist"))
+            return next(new ErrorHander("User doesnot exist",404))
         }
         const IsPasswordMatched = user.camparepassword(password);
         if (!IsPasswordMatched) {
-            return next(new ErrorHander("Invalid Email or Password"))
+            return next(new ErrorHander("Invalid Email or Password",500))
         }
         sendGeneratedToken(user, 200, res);
     } catch (error) {
-        return next(new ErrorHander(error))
+        return next(new ErrorHander(error,500))
     }
 
 }
