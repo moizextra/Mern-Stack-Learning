@@ -68,6 +68,7 @@ return jwt.sign({id:this._id},process.env.JWT_SCRECT_KEY,{
 UserSchema.methods.camparepassword= async function(enteredpassword){
 return  await bcrypt.compare(enteredpassword,this.password)
 }
+// Genearting Reset Password Token
 UserSchema.methods.GeneratePasswordResetToken= async function(){
 // Generating token
 const Token=crypto.randomBytes(20).toString("hex")

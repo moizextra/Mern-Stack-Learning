@@ -1,24 +1,28 @@
-const nodeMailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 
-const sendEmail = async (options) => {
-    let testaccount=await nodeMailer.createTestAccount();
-    const transporter = nodeMailer.createTransport({
-        host: 'smtp.ethereal.email',
-        port: 587,
-        auth: {
-            user: 'kamron.mosciski34@ethereal.email',
-            pass: 'emRyRKcbCu2KGJjXnX'
-        }
+const sendEmail= async (email, Subject, message) => {
+  try {
+    const transporter = await nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+        user: 'kattie.predovic82@ethereal.email',
+        pass: 'AsK3nt1kBkbgqTjaU8'
+      }
     });
 
-  const mailOptions = {
-    from: "Moiz",
-    to: options.email,
-    subject: options.subject,
-    text: options.message,
-  };
+    const info = await transporter.sendMail({
+      from: '"Moiz Sheraz from Mern Stack Learning" <kattie.predovic82@ethereal.email>',
+      to: email,
+      subject: Subject,
+      text: message
+    });
 
-  await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.messageId);
+    return 'Done';
+  } catch (error) {
+    console.error('Error sending email:', error);
+    throw error; // Rethrow the error for the caller to handle
+  }
 };
-
-module.exports = sendEmail;
+module.exports=sendEmail

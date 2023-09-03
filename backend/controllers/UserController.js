@@ -54,31 +54,27 @@ exports.Logout = async (req, res, next) => {
         message: "Logout Successfully"
     })
 }
+// Forgot Password
 exports.ForgotPassword = async (req, res, next) => {
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
-            return next(new ErrorHander("User doesn't exist", 404)); // Fix typo here
+            return next(new ErrorHander("User doesn't exist", 404)); 
         }
         // Get resetPassword Token
         const resetToken = user.GeneratePasswordResetToken();
-        console.log(resetToken); // Check the implementation of this function
-        await user.save({ validateBeforeSave: false });
+        await user.save({ validateBeforeSave: false }); // *
         const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`;
         const message = `Your Password Reset Token: ${resetPasswordUrl}\n\nIf you have not requested to reset your password, please ignore this email. Have a nice day!`;
 
         try {
-            await sendEmail({
-                email: user.email,
-                Subject: "Mern stack Course",
-                message
-            });
-            res.status(200).json({
-                success: true,
-                message: "Email sent. Please check your inbox."
-            });
+            await sendEmail(user.email, "Mern stack Course - Password Reset", message);
+
         } catch (error) {
             // Handle error sending email
+            user.resetpasswordToken = undefined;
+            user.resetpasswordexpire = undefined;
+            await user.save({ validateBeforeSave: false });
             return next(new ErrorHander(error.message, 500));
         }
     } catch (error) {
@@ -86,3 +82,4 @@ exports.ForgotPassword = async (req, res, next) => {
         return next(new ErrorHander(error.message, 500));
     }
 };
+
