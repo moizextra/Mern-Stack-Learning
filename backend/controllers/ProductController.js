@@ -7,7 +7,8 @@ const Features = require("../utils/features");
 // This route is  only for admin 
 exports.CreateProduct =
     async (req, res, next) => {
-        try{
+        try
+        {
             req.body.user=req.user.id; // in the particular product we are setting its user field to user.id
             const product = await Product.create(req.body);
             res.status(221).json({ message: "Done", product })

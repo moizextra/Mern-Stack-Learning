@@ -1,7 +1,8 @@
 const ErrorHander = require("../utils/errorhandler");
 const User = require("../models/userModels");
-const sendGeneratedToken = require("../utils/sendtoken")
-const sendEmail = require("../utils/sendemail") 
+const sendGeneratedToken = require("../utils/sendtoken");
+const crypto=require("crypto");
+const sendEmail = require("../utils/sendemail") ;
 // Register a User
 exports.registerUser =
     async (req, res, next) => {
@@ -62,9 +63,9 @@ exports.ForgotPassword = async (req, res, next) => {
             return next(new ErrorHander("User doesn't exist", 404)); 
         }
         // Get resetPassword Token
-        const resetToken = user.GeneratePasswordResetToken();
+        const resetToken =  await user.GeneratePasswordResetToken();
         await user.save({ validateBeforeSave: false }); // *
-        const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`;
+        const resetPasswordUrl = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetToken}`;
         const message = `Your Password Reset Token: ${resetPasswordUrl}\n\nIf you have not requested to reset your password, please ignore this email. Have a nice day!`;
 
         try {
@@ -82,4 +83,24 @@ exports.ForgotPassword = async (req, res, next) => {
         return next(new ErrorHander(error.message, 500));
     }
 };
+exports.ResetPassword=async (req,res,next)=>{
+    try{
+        // creating hash of token that is received by user
+        const resetpasswordToken=crypto.createHash("sha256").update(req.params.resetToken).digest("hex");
+        const user=user.findOne({resetpasswordToken:resetpasswordToken,resetpasswordexpire:{$gt:Date.now()}});
+if(!user){
+    return next(new ErrorHander("Reset Password Token is Invalid or has been expired :(",400))
+}
+if(req.body.password !== req.body.confirmpassword){
+    return next(new ErrorHander("Passwords do not match:(",400))
+}
+user.password=req.body.password;
+user.resetpasswordToken=undefined
+user.resetpasswordexpire=undefined
+await user.save()
+sendGeneratedToken(user,200,res) // login
+    }catch(error){
+next(new ErrorHander(error.message,500))
+    }
+}
 

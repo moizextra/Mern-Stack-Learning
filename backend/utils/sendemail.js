@@ -2,20 +2,22 @@ const nodemailer = require('nodemailer');
 
 const sendEmail= async (email, Subject, message) => {
   try {
-    const transporter = await nodemailer.createTransport({
+    
+    const transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,
       auth: {
-        user: 'kattie.predovic82@ethereal.email',
-        pass: 'AsK3nt1kBkbgqTjaU8'
+          user: 'prince62@ethereal.email',
+          pass: 'uWxz2wUXKrcSSDcjs7'
       }
-    });
+  });
 
     const info = await transporter.sendMail({
       from: '"Moiz Sheraz from Mern Stack Learning" <kattie.predovic82@ethereal.email>',
       to: email,
       subject: Subject,
-      text: message
+      text: message,
+      html:'<h1><Password Reset Request</h1>'
     });
 
     console.log('Email sent:', info.messageId);
