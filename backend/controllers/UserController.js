@@ -83,24 +83,56 @@ exports.ForgotPassword = async (req, res, next) => {
         return next(new ErrorHander(error.message, 500));
     }
 };
-exports.ResetPassword=async (req,res,next)=>{
-    try{
-        // creating hash of token that is received by user
-        const resetpasswordToken=crypto.createHash("sha256").update(req.params.resetToken).digest("hex");
-        const user=user.findOne({resetpasswordToken:resetpasswordToken,resetpasswordexpire:{$gt:Date.now()}});
-if(!user){
-    return next(new ErrorHander("Reset Password Token is Invalid or has been expired :(",400))
-}
-if(req.body.password !== req.body.confirmpassword){
-    return next(new ErrorHander("Passwords do not match:(",400))
-}
-user.password=req.body.password;
-user.resetpasswordToken=undefined
-user.resetpasswordexpire=undefined
-await user.save()
-sendGeneratedToken(user,200,res) // login
-    }catch(error){
-next(new ErrorHander(error.message,500))
+exports.ResetPassword = async (req, res, next) => {
+    try {
+        // Creating hash of token that is received by user
+        console.log(req.params.token);
+        // const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
+
+        const user = await User.findOne({ resetpasswordToken: req.params.token, resetpasswordexpire: { $gt: Date.now() } });
+
+
+        if (!user) {
+            return next(new ErrorHander("Reset Password Token is Invalid or has been expired :(", 400));
+        }
+
+        if (req.body.password !== req.body.confirmpassword) {
+            return next(new ErrorHander("Passwords do not match :(", 400));
+        }
+
+        user.password = req.body.password;
+        user.resetpasswordToken = undefined;
+        user.resetpasswordexpire = undefined;
+        await user.save();
+        sendGeneratedToken(user, 200, res); // Login
+    } catch (error) {
+        return next(new ErrorHander(error.message, 500));
     }
 }
+exports.getUserDetail=async(req,res,next)=>{
+const user=await User.findById(req.user.id)
+
+res.status(200).json({
+    success:true,
+    user
+})
+}
+exports.UpdatePassword=async(req,res,next)=>{
+const user=await User.findById(req.user.id).select("+password")
+const IsPasswordMatched = user.camparepassword(req.body.oldPassword);
+if (!IsPasswordMatched) {
+    return next(new ErrorHander("InCorrect Old Password",500))
+}
+if(req.body.password != req.body.confirmpassword){
+    return next(new ErrorHander("Passwords donot match",400))
+}
+user.password=req.body.password;
+await user.save();
+sendGeneratedToken(user,200,res)
+res.status(200).json({
+    success:true,
+    user
+})
+}
+
 
