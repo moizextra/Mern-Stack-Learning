@@ -134,5 +134,71 @@ res.status(200).json({
     user
 })
 }
+exports.UpdateProfile=async(req,res,next)=>{
+const newUserData={
+    name:req.body.name,
+    email:req.body.email,
+     // Todo: we will add avatar later
+}
+const user= await User.findByIdAndUpdate(req.user.id,newUserData,{
+    new:true,
+    runValidators:true,
+    useFindAndModify:false
+});
+res.status(200).json({
+    success:true,
+    user
+})
+}
+// if admin wants all users (admin)
+exports.GetAllUsers=async(req,res,next)=>{
+const users=await User.find();
+res.status(200).json({
+    success:true,
+    users
+})
+}
+// Now Admin wants to access only one particular User
+exports.GetUser=async(req,res,next)=>{
+const user=await User.findById(req.params.id);
+if(!user){
+    return next(new ErrorHander("User dont exist",404))
+}
+res.status(200).json({
+    success:true,
+    user
+})
+}
+// This route is for admin if he wants to update the profile of Users usually admin will update user Role
+exports.UpdateUserProfile=async(req,res,next)=>{
+    const newUserData={
+        name:req.body.name,
+        email:req.body.email,
+        role:req.body.role
+         // Todo: we will add avatar later
+    }
+    const user= await User.findByIdAndUpdate(req.params.id,newUserData,{
+        new:true,
+        runValidators:true,
+        useFindAndModify:false
+    });
+     await user.save()
+    res.status(200).json({
+        success:true,
+        user
+    })
+    }
+// This route is for admin if he wants to delete the profile of User 
+exports.DeleteUser=async(req,res,next)=>{
 
+    const user= await User.findByIdAndDelete(req.params.id);
+    if(!user){
+        return next(new ErrorHander("User Dont exist",404))
+    }
+
+    res.status(200).json({
+        success:true,
+        message:"User Deleted Successfully"
+    })
+    }
 

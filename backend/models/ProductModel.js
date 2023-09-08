@@ -15,7 +15,7 @@ Price:{
     required:[true,"Please Enter the Product Price"],
     maxLength:[8,"Price cannot exceed 8 Characters"]
 },
-rating:{
+ratings:{
     type:Number,
     default:0
 },
@@ -49,6 +49,11 @@ noOfReviews:{
 },
 reviews:[
 {
+    user:{
+        type:mongoose.Schema.ObjectId,
+        ref:"User",
+        required:true
+    },
     name:{
         type:String,
         required:true
