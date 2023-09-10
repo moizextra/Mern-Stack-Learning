@@ -1,12 +1,14 @@
 const app=require("./app");
 const dotenv =require("dotenv")
 const connectDataBase =require("./config/database")
+
 // Handling uncaught Error
 process.on("uncaughtException",(err)=>{
   console.log(err.message);
   console.log("Shtting Down the Server due to Uncaught Exception")
     process.exit(1)
   })
+
 dotenv.config({path:'backend/config/config.env'})
 connectDataBase();
 port=process.env.PORT
@@ -14,11 +16,10 @@ port=process.env.PORT
   console.log(`Example app listening on port http://localhost:${port}`)
 })
 
-
 //  Handling unhandled Promise rejection
 process.on("unhandledRejection",(err)=>{
 console.log(err.message);
-console.log("Shtting Down the Server")
+console.log("Shutting Down the Server")
 server.close(()=>{
   process.exit(1)
 })

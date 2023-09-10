@@ -20,10 +20,22 @@ const Login = () => {
     console.log(formData)
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    dispatch(adduser(formData))
+    
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/login', formData); 
+
+      const data = response.data;
+      
+      dispatch(adduser(data)); 
+      
+      navigate("/Account");
+    } catch (error) {
+      console.error('Login error:', error);
+    }
   };
+  
   const state=useSelector((state)=>state.User)
   const isAutheticated=useSelector((state)=>state.User.isAutheticated)
   if(isAutheticated){
