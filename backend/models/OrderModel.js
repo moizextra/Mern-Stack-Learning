@@ -49,11 +49,11 @@ const OrderSchema = new Schema({
                 required: true
             },
             image: {
-                type: Number,
+                type: String,
                 required: true
             },
             product: {
-                type: moongoes.Schema.ObjectId,
+                type: mongoose.Schema.ObjectId,
                 ref: "Product",
                 required: true
             }
