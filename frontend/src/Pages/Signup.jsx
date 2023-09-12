@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { RegisterUser } from '../UserSlices/RegisterUser';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Signup = () => {
+  const dispatch=useDispatch();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,10 +19,9 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can add your form submission logic here
-    console.log(formData);
+    dispatch(RegisterUser(formData))
   };
 
   return (

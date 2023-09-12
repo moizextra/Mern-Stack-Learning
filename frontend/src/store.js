@@ -3,12 +3,13 @@ import ProductReducer from "./Productslices/Products"
 import FilteredProductsReducer from "./Productslices/FilteredProducts"
 import ProductDetailReducer from "./Productslices/ProductDetail"
 import adduserReducer from "./UserSlices/User"
-import { adduser } from './UserSlices/User';
+import registerUserReducer from "./UserSlices/RegisterUser"
 export const store = configureStore({
   reducer: {
     product:ProductReducer,
     FilteredProducts:FilteredProductsReducer,
     productDetail:ProductDetailReducer,
-    User:adduserReducer
+    User:adduserReducer,  // User Login
+    UserSignup:registerUserReducer
   },
 });

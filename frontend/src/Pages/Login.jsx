@@ -1,36 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { adduser } from '../UserSlices/User';
 import { useNavigate } from 'react-router-dom';
-
+import axios from "axios";
 const Login = () => {
+const isAutheticated=useSelector((state)=>state.User.isAutheticated);
+console.log("You are"+ isAutheticated)
   const dispatch=useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-
+  useEffect(() => {
+    if (isAutheticated) {
+      navigate("/account");
+    }
+  }, [isAutheticated]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-    console.log(formData)
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     dispatch(adduser(formData))
-  };
-  const state=useSelector((state)=>state.User)
-  const isAutheticated=useSelector((state)=>state.User.isAutheticated)
-  if(isAutheticated){
-    navigate("/Account")
-  }
+    if(isAuthenticated){
+      navigate("/account")
+    }
 
-console.log(state)
+  };
+
   const handleForgotPassword = () => {
     // Add logic to handle forgotten password, e.g., show a modal or navigate to a password reset page
     console.log('Forgot Password clicked');

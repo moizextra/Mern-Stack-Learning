@@ -1,7 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Header = () => {
+  const isAutheticated=useSelector((state)=>state.User.isAutheticated)
   return (
   <nav className="bg-white dark:bg-white-900 w-full z-20 top-0 left-0 border-b border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -71,9 +73,10 @@ const Header = () => {
             <li>
               <Link to="/signup">Signup</Link>
             </li>
-            <li>
+            {!isAutheticated && <li>
               <Link to="/login">Login</Link>
-            </li>
+            </li>}
+
           </ul>
         </div>
       </div>
