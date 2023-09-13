@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const adduser = createAsyncThunk('adduser', async (userdata) => {
     const options={
         method:"POST",
+        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
           },
