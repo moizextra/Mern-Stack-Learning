@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 export const RegisterUser = createAsyncThunk('RegisterUser', async ({name,email,password,avatar}) => {
   const options = {
     method: "POST",
-  
+    withCredentials: true, // Set credentials to true
     headers: {
       "Content-Type": "application/json" ,
     },
@@ -34,6 +34,7 @@ const userslice = createSlice({
       state.isAutheticated=true;
       state.userData=action.payload.user
       state.error = null; // Clear any previous errors
+      console.log(action.payload)
     });
     builder.addCase(RegisterUser.pending, (state, action) => {
       state.isLoading = true;

@@ -4,7 +4,8 @@ import { adduser } from '../UserSlices/User';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 const Login = () => {
-const isAutheticated=useSelector((state)=>state.User.isAutheticated);
+const isAutheticated=useSelector((state)=>state.User.isAutheticated) || false ;
+const token=useSelector((state)=>state.User.token);
 console.log("You are"+ isAutheticated)
   const dispatch=useDispatch();
   const navigate = useNavigate();
@@ -16,7 +17,8 @@ console.log("You are"+ isAutheticated)
     if (isAutheticated) {
       navigate("/account");
     }
-  }, [isAutheticated]);
+    localStorage.setItem("token",token)
+  }, [isAutheticated,token]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -27,7 +29,7 @@ console.log("You are"+ isAutheticated)
   const handleSubmit = async(e) => {
     e.preventDefault();
     dispatch(adduser(formData))
-    if(isAuthenticated){
+    if(isAutheticated){
       navigate("/account")
     }
 

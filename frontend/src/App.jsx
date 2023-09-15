@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState ,useEffect} from 'react'
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,7 +14,14 @@ import Search from './Pages/Search';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
 import Account from './Componets/Account';
+import { useDispatch} from 'react-redux';
+import {loadUser} from './UserSlices/User'
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+dispatch(loadUser())
+  }, [])
+
   return (
 <Router>
 <Header/>
