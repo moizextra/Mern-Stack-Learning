@@ -39,7 +39,25 @@ export const loadUser = createAsyncThunk('loadUser', async () => {
     throw error;
   }
 });
+// Logout User
+export const LogoutUser = createAsyncThunk('LogoutUser', async () => {
+  const url = 'http://localhost:3000/api/v1/logout';
+  try {
+    const response = await axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
+    if (response.status !== 200) {
+      throw new Error('Failed To Logout User');
+    }
+
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
 const userslice = createSlice({
   name: 'product',
   initialState: {
@@ -72,6 +90,13 @@ const userslice = createSlice({
       state.isAutheticated = true;
       state.userData = action.payload;
       state.error = null; // Clear any previous errors
+    });
+    builder.addCase(LogoutUser.fulfilled, (state, action) => {
+      state.isLoading = false; 
+      state.message = 'Logout SuccessFully';
+      state.isAutheticated = false;
+      state.userData = {};
+      state.error = null; 
     });
     
   },

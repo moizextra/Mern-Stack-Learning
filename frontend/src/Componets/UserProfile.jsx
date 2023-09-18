@@ -1,10 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { LogoutUser } from '../UserSlices/User';
 
 const UserProfile = ({ user }) => {
+  const dispatch=useDispatch();
   if (!user) {
     return <div>Loading...</div>;
+  }
+  const handleLogout=()=>{
+    dispatch(LogoutUser())
   }
 
   return (
@@ -15,7 +20,8 @@ const UserProfile = ({ user }) => {
       <ul class="dropdown-menu ">
         <li><Link class="dropdown-item" to="/account">Account</Link></li>
         <li><Link class="dropdown-item" href="#">Order</Link></li>
-        <li><Link class="dropdown-item" href="#">Logout</Link></li>
+        <li><button onClick={handleLogout} class="dropdown-item" href="#">Logout</button></li>
+        {user.role =="admin"  &&   <li><Link class="dropdown-item" href="#">Dashboard</Link></li> }
       </ul>
     </div>
   );
