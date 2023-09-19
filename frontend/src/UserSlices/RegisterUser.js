@@ -10,7 +10,7 @@ export const RegisterUser = createAsyncThunk('RegisterUser', async ({name,email,
     body: JSON.stringify({name,email,password,avatar}),
   };
 
-  const response = await fetch(`http://localhost:3000/api/v1/register`, options);
+  const response = await axios.post(`http://localhost:3000/api/v1/register`, options);
 if(!response){
   throw new Error('Failed To Add User');
 }

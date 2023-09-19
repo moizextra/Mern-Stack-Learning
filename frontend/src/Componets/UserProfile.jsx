@@ -15,7 +15,7 @@ const UserProfile = ({ user }) => {
   return (
     <div class="dropdown-center">
       <button class="btn btn-danger bg-red-600 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {user.name}
+        {user.name} <img src={user.avatar.public_id} className='w-10 h-10 rounded-full' alt="" />
       </button>
       <ul class="dropdown-menu ">
         <li><Link class="dropdown-item" to="/account">Account</Link></li>
