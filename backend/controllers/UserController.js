@@ -52,12 +52,19 @@ exports.LoginUser = async (req, res, next) => {
 
 }
 exports.Logout = async (req, res, next) => {
+    const cookieOptions = {
+        expires: new Date(Date.now()), 
+        domain:"localhost",
+        path:"/api/v1",
+        httpOnly: true, // Limit the cookie to be accessible only through HTTP
+        sameSite: 'None', // Allow cross-origin cookies (if applicable)
+    };
     res.cookie("token", null, {
         httpOnly: true,
         secure: true,
         sameSite: "strict",
         path:"/"
-    }).status(200).json({
+    }) .status(200).json({
             success: true,
         });
 }

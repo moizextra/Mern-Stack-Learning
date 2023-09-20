@@ -13,7 +13,7 @@ import Product from './Pages/Products';
 import Search from './Pages/Search';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
-import Account from './Componets/Account';
+import Profile from './Componets/Profile';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './UserSlices/User';
 
@@ -39,7 +39,7 @@ function App() {
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
-          <Route exact path="/account" element={<Account />} />
+          <Route exact path="/account" element={<Profile user={user} />} />
         </Routes>
       )}
       <Footer />
