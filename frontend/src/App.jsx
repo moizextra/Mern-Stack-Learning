@@ -16,15 +16,19 @@ import Signup from './Pages/Signup';
 import Profile from './Componets/Profile';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './UserSlices/User';
-
+import ProtectedRoute from './Componets/Route/ProtectedRoute';
 function App() {
+  const {isLoading,isAutheticated,userData}=useSelector(state=>state.User)
   const user = useSelector((state) => state.User.userData.user);
-  const isLoading = useSelector((state) => state.User.isLoading);
   const dispatch = useDispatch();
+ 
   useEffect(() => {
     dispatch(loadUser());
   }, [dispatch]);
 
+  if(!userData){
+    return <h1>loading...</h1>
+  }
   return (
     <Router>
       <Header user={user} />
@@ -39,7 +43,15 @@ function App() {
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
-          <Route exact path="/account" element={<Profile user={user} />} />
+          <Route
+  path="/account"
+  element={
+    <ProtectedRoute >
+      <Profile user={user} />
+    </ProtectedRoute>
+  }
+/>
+          {/* <ProtectedRoute exact path="/account" element={<Profile user={user} />} /> */}
         </Routes>
       )}
       <Footer />

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getProductsDetails = createAsyncThunk('getProducts', async (id) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/product/${id}`);
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/product/${id}`);
     if (!response.ok) {
       throw new Error('Failed to fetch products');
     }

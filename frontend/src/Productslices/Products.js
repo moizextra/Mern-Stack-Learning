@@ -2,13 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getProducts = createAsyncThunk('getProducts', async ( { keyword="", page=1,price,Category ,ratings}) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/v1/products`);
+    const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/products`);
     return response.json();
   } catch (error) {
     throw error;
   }
 });
-
 const productslice = createSlice({
   name: 'product',
   initialState: {

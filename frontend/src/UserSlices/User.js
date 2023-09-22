@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const adduser = createAsyncThunk('adduser', async (userdata) => {
-  const url = 'http://localhost:3000/api/v1/login';
+
+  const url = `${import.meta.env.VITE_BASE_URL}/api/v1/login`;
   try {
     const response = await axios.post(url, userdata, {
       withCredentials: true,
@@ -22,7 +23,7 @@ export const adduser = createAsyncThunk('adduser', async (userdata) => {
 });
 
 export const loadUser = createAsyncThunk('loadUser', async () => {
-  const url = 'http://localhost:3000/api/v1/me';
+  const url = `${import.meta.env.VITE_BASE_URL}/api/v1/me`;
   try {
     const response = await axios.get(url, {
       withCredentials: true,
@@ -42,7 +43,7 @@ export const loadUser = createAsyncThunk('loadUser', async () => {
 });
 
 export const LogoutUser = createAsyncThunk('LogoutUser', async () => {
-  const url = 'http://localhost:3000/api/v1/logout';
+  const url = `${import.meta.env.VITE_BASE_URL}/api/v1/logout`;
   try {
     const response = await axios.get(url, {
       headers: {
@@ -61,8 +62,7 @@ export const LogoutUser = createAsyncThunk('LogoutUser', async () => {
 });
 
 export const updateUser = createAsyncThunk('updateUser', async (userData) => {
-  const url = 'http://localhost:3000/api/v1/me/update';
-
+  const url = `${import.meta.env.VITE_BASE_URL}/api/v1/me/update`;
   try {
     const response = await axios.put(url, userData, {
       withCredentials: true,

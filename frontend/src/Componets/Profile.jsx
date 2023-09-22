@@ -4,7 +4,7 @@ import Metadata from './layout/metadata';
 import { updateUser } from '../UserSlices/User';
 import { useDispatch, useSelector } from 'react-redux';
 const Profile = ({ user }) => {
-  const isLoading = useSelector((state) => state.User.isLoading);
+  const {isLoading,isAutheticated,userData}=useSelector(state=>state.User)
   const [name, setname] = useState(user.name);
   const [email, setemail] = useState(user.email);
   const [Editable, setEditable] = useState(false);
@@ -12,7 +12,7 @@ const Profile = ({ user }) => {
   const handleChange = () => {
     dispatch(updateUser({ name, email }));
   }
-  if (!user) {
+  if (!userData) {
     return <h1>LOADING..</h1>
   }
   return (

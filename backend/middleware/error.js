@@ -22,6 +22,6 @@ module.exports = (err, req, res, next) => {
   // Now, send the error response with the appropriate status code and message
   res.status(err.statusCode).json({
     success: false,
-    message: err.message
+    message: err.stack
   });
 };
