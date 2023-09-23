@@ -1,23 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const RegisterUser = createAsyncThunk('RegisterUser', async ({name,email,password,avatar}) => {
-  const options = {
-    method: "POST",
-    withCredentials: true, 
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({name,email,password,avatar}),
+export const RegisterUser = createAsyncThunk('RegisterUser', async ({ name, email, password ,avatar}) => {
+
+  const requestData = {
+    name, 
+    email,
+    password  ,
+    avatar
   };
-    
-  try {
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/register`, options);
-    return response.data; 
-  } catch (error) {
-    throw new Error('Failed To Add User'); 
-  }
+
+  const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/register`, requestData);
+
+  return response.data; 
+
 });
+
 
 
 const userSlice = createSlice({

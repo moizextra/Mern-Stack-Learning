@@ -54,7 +54,13 @@ const [avatarPreview, setAvatarPreview] = useState('/images/default_avatar.jpg')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-dispatch(RegisterUser({name,email,password,avatar}))
+    const Userdata={
+      name:name,
+      email:email,
+      password:password,
+      avatar:avatar
+    }
+dispatch(RegisterUser(Userdata));
   };
 
   return (
