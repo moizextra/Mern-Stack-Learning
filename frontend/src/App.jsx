@@ -51,7 +51,6 @@ function App() {
     </ProtectedRoute>
   }
 />
-          {/* <ProtectedRoute exact path="/account" element={<Profile user={user} />} /> */}
         </Routes>
       )}
       <Footer />

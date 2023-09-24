@@ -10,16 +10,15 @@ const sendGeneratedToken = (user, statusCode, res) => {
         sameSite: 'None', // Allow cross-origin cookies (if applicable)
     };
     res.cookie("token", token,
-    //  {
-    //     expires: new Date(
-    //         Date.now() + 60 * 24 * 60 * 60 * 1000
-    //     ), 
-    //     httpOnly: true,
-    //     secure: true,
-    //     sameSite: "strict",
-    //     path:"/"
-    // }
-    cookieOptions,
+     {
+        expires: new Date(
+            Date.now() + 60 * 24 * 60 * 60 * 1000
+        ), 
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        path:"/"
+    }
     
     ) .status(statusCode).json({
             success: true,

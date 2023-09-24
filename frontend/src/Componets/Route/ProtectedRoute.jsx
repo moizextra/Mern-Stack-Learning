@@ -8,9 +8,8 @@ const ProtectedRoute = ({children}) => { // Here ...rest is options object or pa
   if(!isAutheticated){
     return <Navigate to="/login" />
   }
-  return (
-<children/>
-  )
+  return children
+
 }
 
 export default ProtectedRoute
