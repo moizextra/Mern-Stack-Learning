@@ -66,6 +66,9 @@ const Header = ({user}) => {
               <Link to="/search">Search</Link>
             </li>
             <li>
+              <Link to="/cart">Cart</Link>
+            </li>
+            <li>
               <Link to="/signup">Signup</Link>
             </li>
             {!isAutheticated && <li>

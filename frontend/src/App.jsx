@@ -17,6 +17,7 @@ import Profile from './Componets/Profile';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './UserSlices/User';
 import ProtectedRoute from './Componets/Route/ProtectedRoute';
+import Cart from './Componets/Cart';
 function App() {
   const {isLoading,isAutheticated,userData}=useSelector(state=>state.User)
   const user = useSelector((state) => state.User.userData.user);
@@ -43,6 +44,7 @@ function App() {
           <Route exact path="/search" element={<Search />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/cart" element={<Cart />} />
           <Route
   path="/account"
   element={
