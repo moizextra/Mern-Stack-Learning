@@ -6,7 +6,7 @@ const Cart = () => {
     const dispatch=useDispatch();
     const cartItems=useSelector((state)=>state.cart.cartItems)
   return (
-    <div>
+    <div class="d-flex flex-nowrap">
       {cartItems.map((item)=>(
          <CartItem item={item} />
       ))}

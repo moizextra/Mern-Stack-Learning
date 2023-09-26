@@ -13,7 +13,8 @@ const initialState = {
         const {name,Price,quantity,image,product} = action.payload; //product is actually id
         const existingItem = state.cartItems.find(item => item.product === product);
         if(existingItem){
-            existingItem.quantity += quantity;
+            existingItem.quantity += 1;
+
        }else{
         state.cartItems.push({name,Price,quantity,image,product});  
        }
@@ -23,7 +24,7 @@ const initialState = {
       const index = state.cartItems.findIndex(item => item.product === action.payload);
       state.cartItems.splice(index, 1);  // at particular index and only one Element
       localStorage.setItem('cartItems', JSON.stringify(state.cartItems)); 
-    }
+    },
 
     }
   });
