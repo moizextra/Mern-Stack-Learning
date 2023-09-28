@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import {useDispatch,useSelector } from 'react-redux'
 import { getProductsDetails } from '../Productslices/ProductDetail';
-import {addtoCart}  from "../CartSlices/index"
+import {addtoCart,decrementQuantity,removeFromCart}  from "../CartSlices/index"
 const CartItem = ({ item }) => {
   const dispatch=useDispatch();
   const ProductDetailData=useSelector((state)=>state.productDetail.ProductDetailData);
@@ -11,12 +11,14 @@ const CartItem = ({ item }) => {
       dispatch(addtoCart(item));
     }  
   }
-  
   const deincrement=(id)=>{
     dispatch(getProductsDetails(id))
     if(item.quantity>1){
-     dispatch(addtoCart(item)) 
+     dispatch(decrementQuantity(id)) 
     }
+  }
+  const RemoveFromcart=(id)=>{
+    dispatch(removeFromCart({product:id}))
   }
   return (
     <div class="card m-3" style={{ width: "18rem" }} key={item.product}>
@@ -25,11 +27,10 @@ const CartItem = ({ item }) => {
         <h5 class="card-title">{item.name}</h5>
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
           <p className='m-2'><span className='font-bold'>Quantity : </span>{item.quantity}</p>
-          <p className='m-2'><span className='font-bold'>Total Price : </span>{item.Price * item.quantity}</p>
           <button type="button" onClick={()=>{deincrement(item.product)}} class="btn btn-danger text-black">-</button>
           <button type="button" onClick={()=>{increment(item.product)}} class="btn btn-success text-black">+</button>
         </div>
-        <a href="#" class=" m-1 btn btn-primary">Remove</a>
+        <a href="#" class=" m-1 btn btn-primary" onClick={()=>{RemoveFromcart(item.product)}}>Remove</a>
       </div>
     </div>
   )

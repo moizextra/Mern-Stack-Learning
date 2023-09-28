@@ -18,6 +18,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadUser } from './UserSlices/User';
 import ProtectedRoute from './Componets/Route/ProtectedRoute';
 import Cart from './Componets/Cart';
+import Shipping from './Pages/Shipping';
+import ConfirmOrder from './Pages/ConfirmOrder';
+import Payment from './Pages/Payment';
 function App() {
   const {isLoading,isAutheticated,userData}=useSelector(state=>state.User)
   const user = useSelector((state) => state.User.userData.user);
@@ -45,11 +48,28 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/cart" element={<Cart />} />
+          <Route exact path="/shipping" element={<Shipping />} />
           <Route
   path="/account"
   element={
     <ProtectedRoute >
       <Profile user={user} />
+    </ProtectedRoute>
+  }
+/>
+          <Route
+  path="/order/confirm"
+  element={
+    <ProtectedRoute >
+      <ConfirmOrder />
+    </ProtectedRoute>
+  }
+/>
+          <Route
+  path="/order/confirm/payment"
+  element={
+    <ProtectedRoute >
+      <Payment />
     </ProtectedRoute>
   }
 />

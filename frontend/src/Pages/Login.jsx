@@ -2,8 +2,10 @@ import React, { useState,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { adduser } from '../UserSlices/User';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import axios from "axios";
 const Login = () => {
+const location = useLocation();
 const isAutheticated=useSelector((state)=>state.User.isAutheticated) || false ;
 const token=useSelector((state)=>state.User.token);
 console.log("You are"+ isAutheticated)
@@ -13,12 +15,13 @@ console.log("You are"+ isAutheticated)
     email: '',
     password: '',
   });
+  const redirect = location.search ? location.search.split("=")[1] : "/account";
   useEffect(() => {
     if (isAutheticated) {
-      navigate("/account");
+      navigate(redirect);
     }
-    localStorage.setItem("token",token)
-  }, [isAutheticated,token]);
+    
+  }, [isAutheticated,token,redirect]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
