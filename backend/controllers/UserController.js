@@ -46,7 +46,7 @@ exports.LoginUser = async (req, res, next) => {
         }
 
         // Check if the provided password matches the stored password
-        const IsPasswordMatched = await user.comparePassword(password);
+        const IsPasswordMatched = await user.comparepassword(password);
             
         if (!IsPasswordMatched) {
             return next(new ErrorHander("Invalid Email or Password", 401)); // 401 for unauthorized
