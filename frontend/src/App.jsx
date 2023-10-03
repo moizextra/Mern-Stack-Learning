@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -21,14 +21,20 @@ import Cart from './Componets/Cart';
 import Shipping from './Pages/Shipping';
 import ConfirmOrder from './Pages/ConfirmOrder';
 import Payment from './Pages/Payment';
+import axios from 'axios';
 function App() {
   const {isLoading,isAutheticated,userData}=useSelector(state=>state.User)
+const [stripekey,setstripekey]=useState()
   const user = useSelector((state) => state.User.userData.user);
   const dispatch = useDispatch();
- 
+ const getStripeKey=async()=>{
+  const {data}= await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/stripeapikey`)
+  console.log("The data is " +data.stripeApiKey);
+ }
   useEffect(() => {
     dispatch(loadUser());
-  }, [dispatch]);
+getStripeKey()  ;
+  }, []);
 
   if(!userData){
     return <h1>loading...</h1>
@@ -73,6 +79,7 @@ function App() {
     </ProtectedRoute>
   }
 />
+        
         </Routes>
       )}
       <Footer />

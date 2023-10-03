@@ -65,7 +65,7 @@ return jwt.sign({id:this._id},process.env.JWT_SCRECT_KEY,{
     expiresIn:process.env.JWT_EXPIRES_IN
 })  // sign() takes payload inside it
 }
-UserSchema.methods.camparepassword= async function(enteredpassword){
+UserSchema.methods.comparepassword= async function(enteredpassword){
 return  await bcrypt.compare(enteredpassword,this.password)
 }
 // Genearting Reset Password Token
