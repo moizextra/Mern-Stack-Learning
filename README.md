@@ -1,6 +1,6 @@
 # Mern Stack Learning
 
-This is a full stack MERN (MongoDB, Express, React, Node.js) app for creating and managing notes.
+This is a full stack E commerce  MERN (MongoDB, Express, React, Node.js) app created for Learning Mern Stack with Proper comments and Best Practices
 
 ## Installation
 
