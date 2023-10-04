@@ -1,6 +1,6 @@
 const Product = require('../models/ProductModel');
 const ErrorHander = require('../utils/errorhandler');
-const asyncWrapper = require('../middleware/catchAsyncError');
+const asyncWrapper = require('../middleware/catchAsyncError1');
 const Features = require('../utils/features');
 
 // Create Product Route Controller

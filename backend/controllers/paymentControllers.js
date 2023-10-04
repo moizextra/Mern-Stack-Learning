@@ -1,5 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const asyncWrapper = require('../middleware/catchAsyncError');
+const asyncWrapper = require('../middleware/catchAsyncError1');
 
 exports.processPayments = asyncWrapper(async (req, res, next) => {
     const mypayment = await stripe.paymentsIntents.create({
