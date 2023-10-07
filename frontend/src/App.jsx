@@ -22,18 +22,24 @@ import Shipping from './Pages/Shipping';
 import ConfirmOrder from './Pages/ConfirmOrder';
 import Payment from './Pages/Payment';
 import axios from 'axios';
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 function App() {
   const {isLoading,isAutheticated,userData}=useSelector(state=>state.User)
-const [stripekey,setstripekey]=useState()
+const [stripekey,setstripekey]=useState("")
   const user = useSelector((state) => state.User.userData.user);
   const dispatch = useDispatch();
+
  const getStripeKey=async()=>{
   const {data}= await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/stripeapikey`)
-  console.log("The data is " +data.stripeApiKey);
+  setstripekey(data.stripeApiKey);
+  console.log(stripekey)
+  console.log(data.stripeApiKey)
  }
+ const stripePromise = loadStripe(stripekey);
   useEffect(() => {
     dispatch(loadUser());
-getStripeKey()  ;
+  getStripeKey()  ;
   }, []);
 
   if(!userData){
@@ -63,6 +69,7 @@ getStripeKey()  ;
     </ProtectedRoute>
   }
 />
+
           <Route
   path="/order/confirm"
   element={
@@ -71,15 +78,17 @@ getStripeKey()  ;
     </ProtectedRoute>
   }
 />
+
           <Route
   path="/order/confirm/payment"
   element={
+<Elements stripe={stripePromise}>
     <ProtectedRoute >
       <Payment />
     </ProtectedRoute>
+    </Elements> 
   }
 />
-        
         </Routes>
       )}
       <Footer />

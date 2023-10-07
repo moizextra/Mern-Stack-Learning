@@ -26,7 +26,7 @@ port=process.env.PORT
 
 //  Handling unhandled Promise rejection
 process.on("unhandledRejection",(err)=>{
-console.log(err.message);
+console.log("ok"+err.message);
 console.log("Shtting Down the Server")
 server.close(()=>{
   process.exit(1)

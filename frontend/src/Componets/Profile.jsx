@@ -25,7 +25,7 @@ const Profile = ({ user }) => {
               <img
                 className="rounded-circle mt-5"
                 width="150px"
-                src={user.avatar.public_id}
+                src={""}
                 alt={user.name}
               />
               <span className="font-weight-bold">{user.name}</span>
