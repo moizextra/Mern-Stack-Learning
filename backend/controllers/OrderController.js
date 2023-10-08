@@ -4,32 +4,37 @@ const ErrorHander = require('../utils/errorhandler');
 const asyncWrapper = require('../middleware/catchAsyncError1');
 
 // Controllers
-exports.newOrder = asyncWrapper(async (req, res, next) => {
-    const {
-        shippinginfo,
-        OrderItems,
-        paymentInfo,
-        ItemsPrice,
-        TaxPrice,
-        ShippingPrice,
-        TotalPrice,
-    } = req.body;
-    const order = Order.create({
-        shippinginfo,
-        OrderItems,
-        paymentInfo,
-        ItemsPrice,
-        TaxPrice,
-        ShippingPrice,
-        TotalPrice,
-        paidAt: Date.now(),
-        user: req.user._id,
-    });
-    res.status(200).json({
-        success: true,
-        order,
-    });
-});
+exports.newOrder = async (req, res, next) => {
+    try{
+        const {
+            shippinginfo,
+            OrderItems,
+            paymentInfo,
+            ItemsPrice,
+            TaxPrice,
+            ShippingPrice,
+            TotalPrice,
+        } = req.body;
+        const order = Order.create({
+            shippinginfo,
+            OrderItems,
+            paymentInfo,
+            ItemsPrice,
+            TaxPrice,
+            ShippingPrice,
+            TotalPrice,
+            paidAt: Date.now(),
+            user: req.user._id,
+        });
+        res.status(200).json({
+            success: true,
+            order,
+        });
+    }catch(error){
+        return next(new ErrorHander(error.message,400));
+    }   
+ 
+}
 
 // getting Single User
 exports.getSingleOrder = asyncWrapper(async (req, res, next) => {

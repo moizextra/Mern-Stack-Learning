@@ -6,25 +6,30 @@ const crypto = require('crypto');
 const sendEmail = require('../utils/sendemail');
 const asyncWrapper = require('../middleware/catchAsyncError1');
 // Register a User
-exports.registerUser = asyncWrapper(async (req, res, next) => {
-    const mycloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-        folder: 'avatars',
-        width: 150,
-        crop: 'scale',
-    });
-    const { name, password, email } = req.body;
-    const user = await User.create({
-        name,
-        email,
-        password,
-        avatar: {
-            public_id: mycloud.public_id,
-            url: mycloud.secure_url,
-        },
-    });
-    // getting token by running method we have defined in jwt
-    sendGeneratedToken(user, 200, res);
-});
+exports.registerUser =async (req, res, next) => {
+    try{
+        const mycloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: 'avatars',
+            width: 150,
+            crop: 'scale',
+        });
+        const { name, password, email } = req.body;
+        const user = await User.create({
+            name,
+            email,
+            password,
+            avatar: {
+                public_id: mycloud.public_id,
+                url: mycloud.secure_url,
+            },
+        });
+        // getting token by running method we have defined in jwt
+        sendGeneratedToken(user, 200, res);
+    }catch(error){
+return next(new ErrorHander(error.message, 500)         );
+    }
+  
+};
 
 exports.LoginUser = asyncWrapper(async (req, res, next) => {
     const { email, password } = req.body;
