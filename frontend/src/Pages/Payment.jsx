@@ -4,7 +4,8 @@ import CustomStepper from '../Componets/CustomStepper';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux"
 import { PaymentElement } from '@stripe/react-stripe-js';
-
+import { newOrder } from '../OrderSlices/newOrder';
+import {useDispatch} from "react-redux";  
 import axios from 'axios';
 import {
   CardNumberElement,
@@ -21,6 +22,7 @@ const Payment = () => {
       return;
     }
   })
+  const dispatch=useDispatch();
   const user = useSelector(state => state.User.userData.user);
   const { cartItems, ShippingInfo } = useSelector(state => state.cart);
   const paybtn = useRef(null);
@@ -43,6 +45,15 @@ const Payment = () => {
       }
       const paymentData = {
         amount: Math.round(orderInfo.total * 100),
+      }
+      const order={
+        ShippingInfo,
+        OrderItems:cartItems,
+        ItemsPrice:orderInfo.total,
+        TaxPrice:orderInfo.tax,
+        ShippingPrice:orderInfo.shippingCharges,
+        TotalPrice:orderInfo.total,
+        //Done 
       }
       const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/payment/process`, paymentData, config)
       const client_secret = data.clientSecret;
@@ -70,9 +81,10 @@ const Payment = () => {
         paybtn.current.disabled = false;
         alert(result.error.message)
       } else {
-        
+        order.paymentInfo = {id:result.paymentIntent.id,status:result.paymentIntent.status}
         alert("Payment Successfull")
-        navigate("/success")
+        navigate("/success");
+        dispatch(newOrder(order))
       }
 
     } catch (error) {
@@ -119,7 +131,7 @@ const Payment = () => {
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue"
               onClick={handlePayment} ref={paybtn}>
-       {loading ? "Loading..." : `Pay $${total}`}     
+       {`Pay $${total}`}     
             </button>
           </div>
         </form>
