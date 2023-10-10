@@ -43,11 +43,13 @@ const Payment = () => {
           "Content-Type": "application/json"
         }
       }
+      
       const paymentData = {
         amount: Math.round(orderInfo.total * 100),
       }
+   
       const order={
-        ShippingInfo,
+        ShippingInfo:ShippingInfo,
         OrderItems:cartItems,
         ItemsPrice:orderInfo.total,
         TaxPrice:orderInfo.tax,

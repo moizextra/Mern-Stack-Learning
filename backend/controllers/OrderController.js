@@ -15,7 +15,7 @@ exports.newOrder = async (req, res, next) => {
             ShippingPrice,
             TotalPrice,
         } = req.body;
-        const order = Order.create({
+        const order = await Order.create({
             shippinginfo,
             OrderItems,
             paymentInfo,

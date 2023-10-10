@@ -29,7 +29,7 @@ const OrderSchema = new Schema({
         },
         PhoneNo: {
             type: String,
-            required: true
+           
         }
     },
     OrderItems: [
@@ -67,7 +67,7 @@ const OrderSchema = new Schema({
     },
     paymentInfo: {
         id: {
-            type: Number,
+            type: String,
             required: true
         },
         status: {
