@@ -49,7 +49,7 @@ const Payment = () => {
       }
    
       const order={
-        ShippingInfo:ShippingInfo,
+        shippinginfo:ShippingInfo,
         OrderItems:cartItems,
         ItemsPrice:orderInfo.total,
         TaxPrice:orderInfo.tax,

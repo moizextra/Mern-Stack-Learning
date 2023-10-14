@@ -10,7 +10,7 @@ const Shipping = () => {
   const navigate = useNavigate();
   const [city, setCity] = useState(shippingInfo.city || "");
   const [state, setState] = useState( "");
-  const [country, setCountry] = useState(   "");
+  const [country, setCountry] = useState("");
   const [pincode, setPincode] = useState(shippingInfo.pincode || "");
   const [phone, setPhone] = useState(shippingInfo.phone || "");
   const countryOptions = [
@@ -40,11 +40,12 @@ const Shipping = () => {
 const handleNext = ()=>{
   navigate('/order/confirm')
 const ShippingInfo={
-  city:city,
-  state:state,
-  country:country,
-  pincode:pincode,
-  phone:phone
+  city:"Los Angeles",
+  state:"California",
+  country:"US",
+  pinCode:pincode,
+  phone:phone,
+  address:"1234 Main St"
 }
 dispatch(SaveCartInfo(ShippingInfo) )
 }

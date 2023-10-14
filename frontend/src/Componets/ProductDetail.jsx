@@ -43,9 +43,9 @@ setType(type)
     const handleCartChange=()=>{
       let product={
         name:ProductDetailData.name,
-        Price:ProductDetailData.Price,
+        price:ProductDetailData.Price,
         quantity:quantity,
-        image:ProductDetailData.image,
+        image:ProductDetailData.images[0],
         product:ProductDetailData._id
       }
       dispatch(addtoCart(product));

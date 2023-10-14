@@ -13,7 +13,7 @@ const OrderSchema = new Schema({
         },
         city: {
             type: String,
-            required: true
+           default:"Nagpur"
         },
         state: {
             type: String,
@@ -25,7 +25,7 @@ const OrderSchema = new Schema({
         },
         pinCode: {
             type: String,
-            required: true
+        default:4600
         },
         PhoneNo: {
             type: String,
