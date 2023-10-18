@@ -19,7 +19,7 @@ const UserProfile = ({ user }) => {
       </button>
       <ul class="dropdown-menu ">
         <li><Link class="dropdown-item" to="/account">Account</Link></li>
-        <li><Link class="dropdown-item" href="#">My Orders</Link></li>
+        <li><Link class="dropdown-item" to="/myorders">My Orders</Link></li>
         <li><button onClick={handleLogout} class="dropdown-item" href="#">Logout</button></li>
         {user.role =="admin"  &&   <li><Link class="dropdown-item" href="#">Dashboard</Link></li> }
       </ul>

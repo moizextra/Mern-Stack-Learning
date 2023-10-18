@@ -24,6 +24,8 @@ import Payment from './Pages/Payment';
 import axios from 'axios';
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import Success from './Pages/Success';
+import MyOrders from './Pages/myOrders';
 function App() {
   const {isLoading,isAutheticated,userData}=useSelector(state=>state.User)
 const [stripekey,setstripekey]=useState("")
@@ -75,6 +77,22 @@ const [stripekey,setstripekey]=useState("")
   element={
     <ProtectedRoute >
       <ConfirmOrder />
+    </ProtectedRoute>
+  }
+/>
+          <Route
+  path="/success"
+  element={
+    <ProtectedRoute >
+      <Success />
+    </ProtectedRoute>
+  }
+/>
+          <Route
+  path="/myorders"
+  element={
+    <ProtectedRoute >
+      <MyOrders />
     </ProtectedRoute>
   }
 />

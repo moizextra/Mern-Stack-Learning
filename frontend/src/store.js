@@ -5,6 +5,7 @@ import ProductDetailReducer from "./Productslices/ProductDetail"
 import adduserReducer from "./UserSlices/User"
 import registerUserReducer from "./UserSlices/RegisterUser"
 import newOrderReducer from "./OrderSlices/newOrder"
+import myOrdersReducer from "./OrderSlices/myOrders"    
 import CartReducer from './CartSlices';
 export const store = configureStore({
   reducer: {
@@ -15,5 +16,6 @@ export const store = configureStore({
     UserSignup:registerUserReducer,
     cart: CartReducer,
     newOrder:newOrderReducer,
+    myOrders:myOrdersReducer,
   },
 });

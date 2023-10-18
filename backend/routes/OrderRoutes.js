@@ -8,5 +8,4 @@ router.route("/order/:id").get(IsAuthenticated,authorizedRoles("admin"),getSingl
 router.route("/admin/orders").get(IsAuthenticated,authorizedRoles("admin"),getAllOrders)
 router.route("/admin/order/:id").put(IsAuthenticated,authorizedRoles("admin"),UpdateOrder).delete(IsAuthenticated,authorizedRoles("admin"),DeleteOrder)
 
-
 module.exports=router;
