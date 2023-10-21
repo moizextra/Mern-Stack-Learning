@@ -62,7 +62,6 @@ const Profile = ({ user }) => {
                 <div className="col-md-6">
                   <button className="btn btn-primary m-3">Reset Password</button>
                 </div>
-
               </div>
             </div>
           </div>

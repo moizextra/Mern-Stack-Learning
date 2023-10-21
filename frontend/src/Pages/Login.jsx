@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { adduser } from '../UserSlices/User';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import axios from "axios";
+
 const Login = () => {
 const location = useLocation();
 const isAutheticated=useSelector((state)=>state.User.isAutheticated) || false ;
@@ -17,7 +17,7 @@ console.log("You are"+ isAutheticated)
   });
   const redirect = location.search ? location.search.split("=")[1] : "/account";
   useEffect(() => {
-    if (isAutheticated) {
+    if (isAutheticated !=false ) {
       navigate(redirect);
     }
     
@@ -32,7 +32,7 @@ console.log("You are"+ isAutheticated)
   const handleSubmit = async(e) => {
     e.preventDefault();
     dispatch(adduser(formData))
-    if(isAutheticated){
+    if(isAutheticated == true){
       navigate("/account")
     }
 

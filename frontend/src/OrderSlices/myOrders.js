@@ -1,14 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const myOrders = createAsyncThunk('myOrders', async (myOrders) => {
+export const myOrders = createAsyncThunk('myOrders', async () => {
+  const url =`${import.meta.env.VITE_BASE_URL}/api/v1/myOrders`;
+  try {
+    const response = await axios.get(url, {
+      withCredentials: true, 
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
-  const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/order/myOrders`, myOrders,{
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  return response.data;
+    if(response.status !== 200) {
+      throw new Error('Failed to load orders'); 
+    }
+
+    return response.data;
+
+  } catch(error) {
+    throw error; 
+  }
 });
 
 const myOrdersSlice = createSlice({
@@ -22,7 +33,7 @@ const myOrdersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(myOrders.fulfilled, (state, action) => {
-      state.myOrders = action.payload;
+      state.myOrders = action.payload.orders;
       state.isLoading = false;
       state.error = null;
     });

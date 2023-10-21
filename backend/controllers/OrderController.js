@@ -52,16 +52,21 @@ exports.getSingleOrder = asyncWrapper(async (req, res, next) => {
 });
 
 // Now getting order of particular user which is loggedIn
-exports.myOrders = asyncWrapper(async (req, res, next) => {
-    const orders = await Order.find({ user: req.user._id }); // Here What is happining is that we have user field in order i will go in user model and popultae name and email from AS SAID IN CODE
-    if (!orders) {
-        return next('Order Not found with this id', 404);
-    }
-    res.status(201).json({
-        Success: true,
-        orders,
-    });
-});
+exports.myOrders = async (req, res, next) => {
+    try{
+        const orders = await Order.find({ user: req.user._id }); // Here What is happining is that we have user field in order i will go in user model and popultae name and email from AS SAID IN CODE
+        if (!orders) {
+            return next('Order Not found with this id', 404);
+        }
+        res.status(200).json({
+            Success: true,
+            orders,
+        });
+    } catch(error){
+        return next(new ErrorHander(error.message,400));
+    }       
+
+};
 
 // getAllOrders (for Admin to get All placed Orders)
 exports.getAllOrders = asyncWrapper(async () => {

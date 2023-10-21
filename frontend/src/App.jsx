@@ -25,7 +25,7 @@ import axios from 'axios';
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Success from './Pages/Success';
-import MyOrders from './Pages/myOrders';
+import MyOrders from './Pages/MyOrders';
 function App() {
   const {isLoading,isAutheticated,userData}=useSelector(state=>state.User)
 const [stripekey,setstripekey]=useState("")
